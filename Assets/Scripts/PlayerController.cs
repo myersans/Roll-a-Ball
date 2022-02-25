@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	// Create public variables for player speed, and for the Text UI game objects
 	public float speed;
 	public TextMeshProUGUI countText;
+	public TextMeshProUGUI healthText;
 	public GameObject winTextObject;
 
         private float movementX;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
 	private int count;
+	private int health;
 
 	// At the start of the game..
 	void Start ()
@@ -25,9 +27,11 @@ public class PlayerController : MonoBehaviour {
 
 		// Set the count to zero 
 		count = 0;
+		health = 10;
+
+		SetHealthText();
 
 		SetCountText ();
-
                 // Set the text property of the Win Text UI to an empty string, making the 'You Win' (game over message) blank
                 winTextObject.SetActive(false);
 	}
@@ -56,6 +60,9 @@ public class PlayerController : MonoBehaviour {
 		if(other.gameObject.CompareTag("Enemy"))
 		{
 			other.gameObject.SetActive(false);
+			health = health - 2;
+
+			SetHealthText();
 		}
 	}
 
@@ -66,6 +73,11 @@ public class PlayerController : MonoBehaviour {
         	movementX = v.x;
         	movementY = v.y;
         }
+
+		void SetHealthText()
+		{
+			healthText.text = "Health: " + health.ToString();
+		}
 
         void SetCountText()
 	{
