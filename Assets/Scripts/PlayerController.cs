@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public TextMeshProUGUI countText;
 	public TextMeshProUGUI healthText;
 	public GameObject winTextObject;
+	public GameObject loseTextObject;
 
         private float movementX;
         private float movementY;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 		SetCountText ();
                 // Set the text property of the Win Text UI to an empty string, making the 'You Win' (game over message) blank
                 winTextObject.SetActive(false);
+				loseTextObject.SetActive(false);
 	}
 
 	void FixedUpdate ()
@@ -77,6 +79,10 @@ public class PlayerController : MonoBehaviour {
 		void SetHealthText()
 		{
 			healthText.text = "Health: " + health.ToString();
+			if(health <= 0)
+			{
+				loseTextObject.SetActive(true);
+			}
 		}
 
         void SetCountText()
